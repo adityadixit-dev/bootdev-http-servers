@@ -7,7 +7,7 @@ export async function handlerMetrics(req: Request, res: Response) {
 <html>
   <body>
     <h1>Welcome, Chirpy Admin</h1>
-    <p>Chirpy has been visited ${cfg.fileserverHits} times!</p>
+    <p>Chirpy has been visited ${cfg.apiConfig.fileserverHits} times!</p>
   </body>
 </html>
 `;

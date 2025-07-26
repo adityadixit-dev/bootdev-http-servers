@@ -6,7 +6,7 @@ export function middlewareMetricsInc(
   res: Response,
   next: NextFunction,
 ) {
-  cfg.fileserverHits++;
+  cfg.apiConfig.fileserverHits++;
 
   next();
 }
