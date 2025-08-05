@@ -6,6 +6,11 @@ try {
 
 type APIConfig = {
   fileserverHits: number;
+  platform: string;
+  saltRounds: number;
+  jwtSecret: string;
+  defaultExpTimeSeconds: number;
+  refreshTokenExpTimeSecs: number;
 };
 
 const migrationConfig: MigrationConfig = {
@@ -25,6 +30,11 @@ type MainConfig = {
 export const cfg: MainConfig = {
   apiConfig: {
     fileserverHits: 0,
+    platform: envOrThrow("PLATFORM"),
+    saltRounds: 10,
+    jwtSecret: envOrThrow("JWT_SECRET"),
+    defaultExpTimeSeconds: 60 * 60,
+    refreshTokenExpTimeSecs: 60 * 24 * 60 * 60,
   },
   dbConfig: {
     dbUrl: envOrThrow("DB_URL"),

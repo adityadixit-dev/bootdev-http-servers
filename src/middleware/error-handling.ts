@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { BadRequestError } from "./custom-errors.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnAuthorizedError,
+} from "./custom-errors.js";
 
 export function errorHandler(
   err: Error,
@@ -14,10 +18,22 @@ export function errorHandler(
     res.status(err.statusCode).json({
       error: `${err.message}`,
     });
+    res.end();
+  } else if (err instanceof NotFoundError) {
+    res.status(err.statusCode).json({
+      error: `${err.message}`,
+    });
+    res.end();
+  } else if (err instanceof UnAuthorizedError) {
+    res.status(err.statusCode).json({
+      error: `${err.message}`,
+    });
+    res.end();
   } else {
     res.status(500).json({
       error: "Something went wrong on our end",
     });
+    res.end();
   }
 
   next();
