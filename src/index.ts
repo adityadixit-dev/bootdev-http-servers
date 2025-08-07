@@ -12,6 +12,9 @@ import { handlerGetChirpFromId } from "./routes/chirps/get-chirp-from-id.js";
 import { handlerLoginUser } from "./routes/users/login-user.js";
 import { handlerTokenRefresh } from "./routes/users/refresh-token.route.js";
 import { handlerRevokeToken } from "./routes/users/revoke.route.js";
+import { handlerUpdateUser } from "./routes/users/update-user.js";
+import { handlerDeleteChirpFromId } from "./routes/chirps/delete-chirp.js";
+import { handlerUpgradeToRed } from "./routes/users/upgrade-to-chirpy-red.js";
 
 const app = express();
 const PORT = 8080;
@@ -25,12 +28,19 @@ app.use("/app", express.static("./src/app"));
 app.get("/api/healthz", asyncErrHandler(handlerReadiness));
 // app.post("/api/validate_chirp", asyncErrHandler(handlerValidateChirp));
 app.post("/api/users", asyncErrHandler(handlerCreateUser));
+app.put("/api/users", asyncErrHandler(handlerUpdateUser));
+
 app.post("/api/login", asyncErrHandler(handlerLoginUser));
 app.post("/api/refresh", asyncErrHandler(handlerTokenRefresh));
 app.post("/api/revoke", asyncErrHandler(handlerRevokeToken));
+
 app.post("/api/chirps", asyncErrHandler(handlerCreateChirp));
 app.get("/api/chirps", asyncErrHandler(handlerGetAllChirps));
+
 app.get("/api/chirps/:chirpId", asyncErrHandler(handlerGetChirpFromId));
+app.delete("/api/chirps/:chirpId", asyncErrHandler(handlerDeleteChirpFromId));
+
+app.post("/api/polka/webhooks", asyncErrHandler(handlerUpgradeToRed));
 
 app.get("/admin/metrics", asyncErrHandler(handlerMetrics));
 app.post("/admin/reset", asyncErrHandler(handlerReset));

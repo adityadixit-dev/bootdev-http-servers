@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {
   BadRequestError,
+  ForbiddedError,
   NotFoundError,
   UnAuthorizedError,
 } from "./custom-errors.js";
@@ -25,6 +26,11 @@ export function errorHandler(
     });
     res.end();
   } else if (err instanceof UnAuthorizedError) {
+    res.status(err.statusCode).json({
+      error: `${err.message}`,
+    });
+    res.end();
+  } else if (err instanceof ForbiddedError) {
     res.status(err.statusCode).json({
       error: `${err.message}`,
     });

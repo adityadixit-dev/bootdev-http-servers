@@ -11,6 +11,7 @@ type APIConfig = {
   jwtSecret: string;
   defaultExpTimeSeconds: number;
   refreshTokenExpTimeSecs: number;
+  polkaKey: string;
 };
 
 const migrationConfig: MigrationConfig = {
@@ -35,6 +36,7 @@ export const cfg: MainConfig = {
     jwtSecret: envOrThrow("JWT_SECRET"),
     defaultExpTimeSeconds: 60 * 60,
     refreshTokenExpTimeSecs: 60 * 24 * 60 * 60,
+    polkaKey: envOrThrow("POLKA_KEY"),
   },
   dbConfig: {
     dbUrl: envOrThrow("DB_URL"),
